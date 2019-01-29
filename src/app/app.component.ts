@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,25 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-}
+  sampleMessage: string;
+
+  constructor(private _http: HttpClient) {
+  }
+
+  logError() {
+    this._http.get('http://dummy.com/dummies')
+    .subscribe(
+      data => console.log(data),
+      err => {
+        Object.assign(err,
+        {
+          test: 'this error i',
+          user : sessionStorage.getItem('user') || 'anonymous user',
+          sampleMessage: this.sampleMessage || 'didn\'t had a valid reason'
+        });
+        throw err;
+      },
+      () => console.log('completed')
+    );
+  }
+ }
