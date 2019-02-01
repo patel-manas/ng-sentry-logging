@@ -20,7 +20,7 @@ export class AppComponent {
       err => {
         Object.assign(err,
         {
-          test: 'this error i',
+          test: 'this error created intentionally to check sentry',
           user : sessionStorage.getItem('user') || 'anonymous user',
           sampleMessage: this.sampleMessage || 'didn\'t had a valid reason'
         });
